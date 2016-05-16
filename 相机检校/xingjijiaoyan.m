@@ -1,12 +1,16 @@
 clear;
-
+%物方坐标
 [pt_wu,X,Y,Z]=textread("E:\大三下\实习\数字摄影测量实习资料\数字摄影测量 实习资料\相机检校\物方控制点坐标.txt",%s %f %f %f);
 number_wu=size(X,1);
+
+%用一张相片检校
+%像点坐标pixel
 [pt_im,x1,y1]=textread("E:\大三下\实习\数字摄影测量实习资料\数字摄影测量 实习资料\相机检校\像点坐标.txt",%s %f %f);
 x1=x1-2672;
 y1=2004-y1;
 number_xiang1=size(x1,1);
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%初值
 X0=0;   Y0=0;
 Fx=2000;    Fy=2000;
 K1=0; K2=0; K3=0;
@@ -15,13 +19,22 @@ Xs=mean(X); Ys=mean(Y); Zs=mean(Z);
 R=eye(3,3);
 
 
-    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%后方交会
+%V = BX - L
+%CX + W = 0 附有限制条件的间接平差
+
+
+
+
+
+%迭代次数ip
 ip=0;
 dX=zeros(26,1);
 
 while max(abs(dX))>0.0001|ip==0
     ip=ip+1;
-    
+    %误差方程式
     [B,L,C,WW]=calibration_SetErrorEquation(pt_im,x1,y1,pt_wu,X,Y,Z,Xs,Ys,Zs,R,X0,Y0,Fx,Fy,K1,K2,P1,P2);
     N1=B'*B;
     M1=[N1:C];

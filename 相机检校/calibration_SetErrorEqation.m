@@ -6,8 +6,9 @@ k=0;
 
 for i=1:number
     if ~isempty(pt_im(i))
-        [row,col]=find(strcmp(pt_im(i),pt_wu));
-        
+        [row,col]=find(strcmp(pt_im(i),pt_wu)); %比较
+        nnn = size(row,1);
+		% if nnn ~= 0
         if row~=0
             k=k+1;
             XX=R(1,1)*(X(row)-Xs)+R(2,1)*(Y(row)-Ys)+R(3,1)*(Z(row)-Zs);
